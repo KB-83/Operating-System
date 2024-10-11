@@ -2,16 +2,15 @@
 .DS_Store
 
 # Ignore .o and .asm files in the special folder only
-src/p1/q1/*.o
-src/p1/q2/*.o
-src/p1/q3/*.o
+src/p1/**/*.o
 src/p1/q2/*.s
 src/p1/q3/*.s
 
 # Ignore test folder
 \test
 
-# Ignore all files without any extension
-src/p1/q1/*.
-src/p1/q2/*.
-src/p1/q3/*.
+# Ignore all files in src/p1 and subdirectories
+src/p1/**/*
+
+# But do not ignore files with an extension (with a dot in their name)
+!src/p1/**/*.*
