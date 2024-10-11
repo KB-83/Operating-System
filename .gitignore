@@ -1,0 +1,12 @@
+# Ignore .DS_Store globally
+.DS_Store
+
+# Ignore .o and .asm files in the special folder only
+src/p1/*.o
+src/p1/*.s
+
+# Ignore test folder
+\test
+
+# Ignore all files without any extension
+src/p1/*.
