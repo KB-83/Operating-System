@@ -7,11 +7,9 @@ code Main
   function main ()
       print ("Example Thread-based Programs...\n")
       InitializeScheduler ()
+      GamingParlor ()
 
-      --  DiningPhilosophers ()
-
-      --  ThreadFinish ()
-      TestBarberShop()
+    --    TestBarberShop()
 
     endFunction
 
@@ -205,149 +203,152 @@ code Main
 
     
   endFunction
-endCode
-
-
 
 
 -----------------------------  Gaming Parlor  ---------------------------------
-
+    enum PLAYING, WAITING , FREE
   var
     mon: GamingParlorMonitor 
     teams: array [8] of Thread = new array of Thread {8 of new Thread }
+    mut : Semaphore
+    numOfPlayed : array [8] of int = new array of int{8 of 0}
 
-  function DiningPhilosophers ()
+  function GamingParlor ()
 
-      mon = GamingParlorMonitor 
+      mon = new GamingParlorMonitor 
       mon.Init()
+      mut = new Semaphore
+      mut.Init(1)
+      mon.PrintAllStatus ()
 
-      teams[0].Init ("A – Backgammon")
-      teams[0].Fork (Play, 4)
+      teams[0].Init ("A  Backgammon")
+      teams[0].Fork (Play, 40)
 
-      teams[1].Init ("B – Backgammon")
-      teams[1].Fork (Play, 4)
+      teams[1].Init ("B  Backgammon")
+      teams[1].Fork (Play ,41)
 
-      teams[2].Init ("C – Risk")
-      teams[2].Fork (Play, 5)
+      teams[2].Init ("C  Risk")
+      teams[2].Fork (Play, 52)
 
-      teams[3].Init ("D – Risk")
-      teams[3].Fork (Play, 5)
+      teams[3].Init ("D  Risk")
+      teams[3].Fork (Play, 53)
 
-      teams[4].Init ("E – Monopoly")
-      teams[4].Fork (Play, 2)
+      teams[4].Init ("E  Monopoly")
+      teams[4].Fork (Play, 24)
 
-      teams[5].Init ("F – Monopoly")
-      teams[5].Fork (Play, 2)
+      teams[5].Init ("F  Monopoly")
+      teams[5].Fork (Play,25)
 
-      teams[6].Init ("G – Pictionary")
-      teams[6].Fork (Play, 1)
+      teams[6].Init ("G  Pictionary")
+      teams[6].Fork (Play,16)
 
-      teams[7].Init ("H – Pictionary")
-      teams[7].Fork (Play, 1)
+      teams[7].Init ("H  Pictionary")
+      teams[7].Fork (Play,17)
 
+        ThreadFinish ()
 
      endFunction
 
-    function Play (p: int)
-    -- The parameter "p" identifies which philosopher this is.
-    -- In a loop, he will think, acquire his forks, eat, and
-    -- put down his forks.
+    function Play (in : int)
       var
-        i: int
-      for i = 1 to 5
-        -- Now he is thinking
-        mon. Request (p)
-        -- Now he is eating
-        mon. Return (p)
-      endFor
+        id,p: int
+      id = in % 10
+      p = in - id
+      p = p / 10
+      while numOfPlayed[id] < 5
+                mon. Request (id , p)
+      endWhile
     endFunction
 
   class GamingParlorMonitor
     superclass Object
     fields
         dices : Semaphore
-    --    status: array [5] of int             -- For each philosopher: HUNGRY, EATING, or THINKING
+      status: array [8] of int
       monitor : Condition
       mute : Mutex
       available : int
     methods
       Init ()
-      Request (numberOfDice: int)
-      Return (numberOfDice: int)
-    --    PrintAllStatus ()
+      Request (teamId :int ,numberOfDice: int)
+      Return (teamId :int ,numberOfDice: int)
+      PrintAllStatus ()
   endClass
 
-  behavior GamingParlorMonitor
+behavior GamingParlorMonitor
     method Init ()
-  --  var 
-  --    i:int
-  dices = new Semaphore
-  dices.Init(8)
-  mute = new Mutex
-  mute.Init()
-  monitor = new Condition
-  monitor.Init()
-  available = 8
---    status = new array of int {5 of THINKING}
+    dices = new Semaphore
+    dices.Init(8)
+    mute = new Mutex
+    mute.Init()
+    monitor = new Condition
+    monitor.Init()
+    available = 8
+    status = new array of int {8 of FREE}
 endMethod
 
-method Request (numberOfDice: int)
-    var 
-    i : int
-  mute.Lock()
-  if available >= numberOfDice
-    available = available - numberOfDice
-    for i = 1 to i = numberOfDice
-    dices.Down()
+method Request(teamId: int, numberOfDice: int)
+    var i: int
+    mute.Lock()
+    if available >= numberOfDice
+        available = available - numberOfDice
+        for i = 1 to numberOfDice
+            dices.Down()
+        endFor
+        status[teamId] = PLAYING
+        self.PrintAllStatus()
+        numOfPlayed[teamId] = numOfPlayed[teamId] + 1
+            mute.Unlock()
+        currentThread.Yield() -- play
+        self.Return(teamId,numberOfDice) -- return
+    else
+        status[teamId] = WAITING
+        self.PrintAllStatus()
+        monitor.Wait(&mute)
+    endIf
+    mute.Unlock()
+endMethod
+
+
+method Return(teamId: int, numberOfDice: int)
+    var i: int
+    mute.Lock()
+        available = available + numberOfDice
+        for i = 1 to numberOfDice
+            dices.Up()
+        endFor
+        status[teamId] = FREE
+            self.PrintAllStatus()
+
+        if available > 0
+            monitor.Broadcast(&mute)
+        endIf
+     mute.Unlock()
+endMethod
+
+    method PrintAllStatus ()
+    var p: int
+    mut.Down()
+    for p = 0 to 7
+        switch status[p]
+            case WAITING:
+                print("W  ")
+                break
+            case PLAYING:
+                print("P  ")
+                break
+            case FREE:
+                print("F  ")
+                break
+        endSwitch
     endFor
-  else
-  monitor.wait(&mute)
-  endIf
-  mute.Unlock()
+    nl()
+    print("num of available dices: ")
+    printInt(available)
+    nl()
+    mut.Up()
 endMethod
 
-method Return (numberOfDice: int)
-    var 
-    i : int
-  mute.Lock()
-    available = available + numberOfDice
-    for i = 1 to i = numberOfDice
-    dices.Up()
-    endFor
-  monitor.Broadcast(&mute)
-  mute.Unlock()
-endMethod
-
-
-    --  method PrintAllStatus ()
-    --    -- Print a single line showing the status of all philosophers.
-    --    --      '.' means thinking
-    --    --      ' ' means hungry
-    --    --      'E' means eating
-    --    -- Note that this method is internal to the monitor.  Thus, when
-    --    -- it is called, the monitor lock will already have been acquired
-    --    -- by the thread.  Therefore, this method can never be re-entered,
-    --    -- since only one thread at a time may execute within the monitor.
-    --    -- Consequently, printing is safe.  This method calls the "print"
-    --    -- routine several times to print a single line, but these will all
-    --    -- happen without interuption.
-    --      var
-    --        p: int
-    --      for p = 0 to 4
-    --        switch status [p]
-    --          case HUNGRY:
-    --            print ("-   ")
-    --            break
-    --          case EATING:
-    --            print ("E   ")
-    --            break
-    --          case THINKING:
-    --            print (".   ")
-    --            break
-    --        endSwitch
-    --      endFor
-    --      nl ()
-    --    endMethod
 
   endBehavior
 endCode
