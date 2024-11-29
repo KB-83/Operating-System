@@ -5,17 +5,16 @@ code Main
   -- <401100071>
 
   function main ()
-      print ("Example Thread-based Programs...\n")
       InitializeScheduler ()
-      GamingParlor ()
+    --    GamingParlor ()
 
-    --    TestBarberShop()
+      TestBarberShop()
 
     endFunction
 
 -----------------------------  Sleeping Barber  ---------------------------------
 
-  enum HUNGRY, EATING, THINKING
+  enum SLEPT,BUSY
   var
     customers : Semaphore
     barbers : Semaphore
@@ -24,6 +23,9 @@ code Main
     barberThread : Thread 
     customerThreads : array [20] of Thread
     printMu :  Semaphore
+    waitingCustomers : array [5] of char
+    barberStatus : int
+    onBarberSeat : String
 
   
   function Init ()
@@ -31,6 +33,9 @@ code Main
         barbers = new Semaphore
         mutex = new Semaphore
         printMu = new Semaphore
+        waitingCustomers = new array of char { 5 of 'e'}
+        barberStatus = SLEPT
+        onBarberSeat = "noOne"
         customers.Init(0)
         barbers.Init(0)
         mutex.Init(1)
@@ -41,70 +46,111 @@ code Main
 
   function Barber (p: int)
         while true
-            customers.Down()     -- Wait for a customer
-            mutex.Down()         -- Protect the waiting count
+            customers.Down()
+            mutex.Down()
             waiting = waiting - 1
-            barbers.Up()         -- Signal that barber is ready
+            barbers.Up()
             mutex.Up()
-            CutHair()       -- Perform haircut
+            CutHair()
         endWhile
   endFunction
 
   function Customer (p: int)
-        mutex.Down()             -- Protect the waiting count
-        printMu.Down()           -- Synchronize print operations
+        var 
+        k : int
+
+        k = 0
+        mutex.Down()
+        printMu.Down()
         nl()
-        printInt(p)
-        nl()
-        print("waiting costumers : ")
-        printInt(waiting)
-        nl()
-        printMu.Up()
         print(currentThread.name)
-        --  PrintState()
-        if waiting < 5           -- Check if there's space in the waiting area
-            print("Hereee        My room ")
+        print( " came   ")
+        nl()
+        printMu.Up() 
+        
+        if waiting < 5
+            while waitingCustomers[k] != 'e' && k < 4
+              k = k+1
+            endWhile
+            printChar(waitingCustomers[k])
+            --  printInt(i)
+            waitingCustomers[k] = currentThread.name[1]
             waiting = waiting + 1
-            customers.Up()       -- Signal that a customer is waiting
+            PrintState()
+            customers.Up()
             mutex.Up()
-            barbers.Down()       -- Wait for a barber
-            HairCut()       -- Get haircut
-        else
-            -- If no space, leave without haircut
+            barbers.Down()
+            HairCut()
+        else    
+            printMu.Down()
+            nl()
+            print(currentThread.name)
+            print(" left :(")
+            nl()
+            printMu.Up()
             mutex.Up()
         endIf
   endFunction
 
   function HairCut ()
+        var
+        j: int
+        j = 0
+        printMu.Down()
+        nl()
         print(currentThread.name)
-        print(" is getting a haircut **** \n")
+        print(" is getting haircut")
+        nl()
+        printMu.Up()
+        while waitingCustomers[j] != currentThread.name[1]
+            j = j+1
+        endWhile
+        waitingCustomers[j] = 'e'
+        onBarberSeat = currentThread.name
+        barberStatus = BUSY
+
+        PrintState()
   endFunction
 
   function CutHair ()
-        print(currentThread.name)
-        print(" Barber is cutting hair\n")
-        --  currentThread.()   -- Simulate time taken to cut hair
+        currentThread.Yield()
+        onBarberSeat = "noOne"
+        barberStatus = SLEPT
   endFunction
 
-  --  function PrintState ()
-  --        printMu.Down()
-  --        print("Snapshot - Waiting customers: ")
-  --        printInt(waiting)
-  --        nl()
-  --        if waiting > 0
-  --            print("Snapshot - Barber is busy\n")
-  --        else
-  --            print("Snapshot - Barber is idle\n")
-  --        endIf
-  --        printMu.Up()
-  --  endFunction
+  function PrintState ()
+        var
+        i : int
 
-  --  function MonitorBarberShop (p : int)
-  --        while true
-  --            PrintState()
-  --            currentThread.Yield()   -- Give other threads time to run
-  --        endWhile
-  --  endFunction
+        printMu.Down()
+
+        print("Snapshot - Waiting customers: ")
+        printInt(waiting)
+        nl()
+
+        print("Shop seats : ")
+        i = 0
+        for i = 0 to 4
+            printChar(waitingCustomers[i])
+            print(" - ")
+        endFor
+        nl()
+
+        print("Barber status : ")
+        printInt(barberStatus)
+        print(" - on seat : |")
+        print(onBarberSeat)
+        nl()
+        print("                ")
+        print("              |_")
+        nl()
+        print("                ")
+        print("              ; ;")
+        nl()
+        nl()
+        
+        printMu.Up()
+  endFunction
 
 
   function TestBarberShop ()
@@ -119,86 +165,65 @@ code Main
     customerThreads = new array of Thread {20 of new Thread}
     customerThreads[0].Init("C0")
     customerThreads[0].Fork(Customer, 0)
-    --  PrintState()
 
     customerThreads[1].Init("C1")
     customerThreads[1].Fork(Customer, 1)
-        --  PrintState()
 
 
     customerThreads[2].Init("C2")
     customerThreads[2].Fork(Customer, 2)
-        --  PrintState()
 
     customerThreads[3].Init("C3")
     customerThreads[3].Fork(Customer, 3)
-        --  PrintState()
 
     customerThreads[4].Init("C4")
     customerThreads[4].Fork(Customer, 4)
-        --  PrintState()
 
     customerThreads[5].Init("C5")
     customerThreads[5].Fork(Customer, 5)
-        --  PrintState()
 
     customerThreads[6].Init("C6")
     customerThreads[6].Fork(Customer, 6)
-        --  PrintState()
 
     customerThreads[7].Init("C7")
     customerThreads[7].Fork(Customer, 7)
-        --  PrintState()
 
     customerThreads[8].Init("C8")
     customerThreads[8].Fork(Customer, 8)
-        --  PrintState()
 
     customerThreads[9].Init("C9")
     customerThreads[9].Fork(Customer, 9)
-        --  PrintState()
 
-        customerThreads[10].Init("C10")
+    customerThreads[10].Init("C10")
     customerThreads[10].Fork(Customer, 10)
-        --  PrintState()
 
     customerThreads[11].Init("C11")
     customerThreads[11].Fork(Customer, 11)
-        --  PrintState()
 
     customerThreads[12].Init("C12")
     customerThreads[12].Fork(Customer, 12)
-        --  PrintState()
 
     customerThreads[13].Init("C13")
     customerThreads[13].Fork(Customer, 13)
-        --  PrintState()
 
     customerThreads[14].Init("C14")
     customerThreads[14].Fork(Customer, 14)
-        --  PrintState()
 
     customerThreads[15].Init("C15")
     customerThreads[15].Fork(Customer, 15)
-        --  PrintState()
 
     customerThreads[16].Init("C16")
     customerThreads[16].Fork(Customer, 16)
-        --  PrintState()
 
     customerThreads[17].Init("C17")
     customerThreads[17].Fork(Customer, 17)
-        --  PrintState()
 
     customerThreads[18].Init("C18")
     customerThreads[18].Fork(Customer, 18)
-        --  PrintState()
 
     customerThreads[19].Init("C19")
     customerThreads[19].Fork(Customer, 19)
-        --  PrintState()
 
-        print("\nKB83\n")
     ThreadFinish ()
 
     
