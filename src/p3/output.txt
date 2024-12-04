@@ -1,0 +1,444 @@
+Script started on Fri Nov 29 12:01:29 2024
+[1m[7m%[27m[1m[0m                                                                          [0m[27m[24m[Jkajal@Kajals-MacBook-Pro p3 % [K[?2004hexitbl[2Cz -g os[11Dmake       blitz -g os[?2004l
+Beginning execution...
+====================  KPL PROGRAM STARTING  ====================
+Initializing Thread Scheduler...
+F  F  F  F  F  F  F  F  
+num of available dices: 8
+P  F  F  F  F  F  F  F  
+num of available dices: 4
+P  F  W  F  F  F  F  F  
+num of available dices: 4
+F  F  W  F  F  F  F  F  
+num of available dices: 8
+P  F  W  F  F  F  F  F  
+num of available dices: 4
+P  P  W  F  F  F  F  F  
+num of available dices: 0
+P  P  W  W  F  F  F  F  
+num of available dices: 0
+P  P  W  W  W  F  F  F  
+num of available dices: 0
+P  P  W  W  W  F  W  F  
+num of available dices: 0
+F  P  W  W  W  F  W  F  
+num of available dices: 4
+F  P  W  W  W  P  W  F  
+num of available dices: 2
+F  P  W  W  W  P  W  P  
+num of available dices: 1
+F  F  W  W  W  P  W  P  
+num of available dices: 5
+F  F  P  W  W  P  W  P  
+num of available dices: 0
+W  F  P  W  W  P  W  P  
+num of available dices: 0
+W  F  P  W  W  F  W  P  
+num of available dices: 2
+W  F  P  W  W  F  W  F  
+num of available dices: 3
+W  W  P  W  W  F  W  F  
+num of available dices: 3
+W  W  F  W  W  F  W  F  
+num of available dices: 8
+W  W  F  P  W  F  W  F  
+num of available dices: 3
+W  W  F  P  P  F  W  F  
+num of available dices: 1
+W  W  F  P  P  F  P  F  
+num of available dices: 0
+W  W  F  P  P  F  P  W  
+num of available dices: 0
+W  W  F  P  P  W  P  W  
+num of available dices: 0
+W  W  W  P  P  W  P  W  
+num of available dices: 0
+W  W  W  F  P  W  P  W  
+num of available dices: 5
+W  W  W  F  F  W  P  W  
+num of available dices: 7
+W  W  W  F  F  W  F  W  
+num of available dices: 8
+P  W  W  F  F  W  F  W  
+num of available dices: 4
+P  P  W  F  F  W  F  W  
+num of available dices: 0
+P  P  W  W  F  W  F  W  
+num of available dices: 0
+P  P  W  W  W  W  F  W  
+num of available dices: 0
+P  P  W  W  W  W  W  W  
+num of available dices: 0
+F  P  W  W  W  W  W  W  
+num of available dices: 4
+F  P  W  W  W  W  W  P  
+num of available dices: 3
+F  P  W  W  W  P  W  P  
+num of available dices: 1
+F  F  W  W  W  P  W  P  
+num of available dices: 5
+F  F  P  W  W  P  W  P  
+num of available dices: 0
+W  F  P  W  W  P  W  P  
+num of available dices: 0
+W  F  P  W  W  P  W  F  
+num of available dices: 1
+W  F  P  W  W  F  W  F  
+num of available dices: 3
+W  F  F  W  W  F  W  F  
+num of available dices: 8
+W  P  F  W  W  F  W  F  
+num of available dices: 4
+W  P  F  W  W  F  W  F  
+num of available dices: 4
+W  P  F  W  P  F  W  F  
+num of available dices: 2
+W  P  F  W  P  F  P  F  
+num of available dices: 1
+W  P  F  W  P  F  P  P  
+num of available dices: 0
+W  P  F  W  P  W  P  P  
+num of available dices: 0
+W  P  W  W  P  W  P  P  
+num of available dices: 0
+W  F  W  W  P  W  P  P  
+num of available dices: 4
+W  F  W  W  F  W  P  P  
+num of available dices: 6
+W  F  W  W  F  W  F  P  
+num of available dices: 7
+P  F  W  W  F  W  F  P  
+num of available dices: 3
+P  F  W  W  F  W  F  F  
+num of available dices: 4
+P  P  W  W  F  W  F  F  
+num of available dices: 0
+P  P  W  W  W  W  F  F  
+num of available dices: 0
+P  P  W  W  W  W  W  F  
+num of available dices: 0
+F  P  W  W  W  W  W  F  
+num of available dices: 4
+F  P  W  W  W  W  W  P  
+num of available dices: 3
+F  F  W  W  W  W  W  P  
+num of available dices: 7
+F  F  W  P  W  W  W  P  
+num of available dices: 2
+F  F  W  P  W  P  W  P  
+num of available dices: 0
+F  F  W  P  W  P  W  P  
+num of available dices: 0
+W  F  W  P  W  P  W  P  
+num of available dices: 0
+W  F  W  P  W  P  W  F  
+num of available dices: 1
+W  W  W  P  W  P  W  F  
+num of available dices: 1
+W  W  W  F  W  P  W  F  
+num of available dices: 6
+W  W  W  F  W  F  W  F  
+num of available dices: 8
+W  W  W  F  P  F  W  F  
+num of available dices: 6
+W  W  W  F  P  F  W  P  
+num of available dices: 5
+W  W  W  F  P  F  P  P  
+num of available dices: 4
+W  W  W  W  P  F  P  P  
+num of available dices: 4
+W  W  W  W  F  F  P  P  
+num of available dices: 6
+W  W  P  W  F  F  P  P  
+num of available dices: 1
+W  W  P  W  F  F  P  F  
+num of available dices: 2
+W  W  P  W  F  P  P  F  
+num of available dices: 0
+W  W  P  W  F  P  P  F  
+num of available dices: 0
+W  W  P  W  F  P  P  F  
+num of available dices: 0
+W  W  P  W  F  P  F  F  
+num of available dices: 1
+W  W  P  W  W  P  F  F  
+num of available dices: 1
+W  W  F  W  W  P  F  F  
+num of available dices: 6
+W  W  F  W  W  F  F  F  
+num of available dices: 8
+W  W  F  W  W  F  P  F  
+num of available dices: 7
+W  W  F  P  W  F  P  F  
+num of available dices: 2
+W  W  W  P  W  F  P  F  
+num of available dices: 2
+W  W  W  P  W  P  P  F  
+num of available dices: 0
+W  W  W  P  W  P  P  F  
+num of available dices: 0
+W  W  W  P  W  P  P  F  
+num of available dices: 0
+W  W  W  P  W  P  F  F  
+num of available dices: 1
+W  W  W  F  W  P  F  F  
+num of available dices: 6
+W  W  W  F  P  P  F  F  
+num of available dices: 4
+W  W  W  F  P  F  F  F  
+num of available dices: 6
+W  W  W  F  P  F  P  F  
+num of available dices: 5
+W  W  W  P  P  F  P  F  
+num of available dices: 0
+W  W  W  P  F  F  P  F  
+num of available dices: 2
+W  W  W  P  F  F  F  F  
+num of available dices: 3
+W  W  W  P  F  F  F  F  
+num of available dices: 3
+W  W  W  P  F  F  F  F  
+num of available dices: 3
+W  W  W  P  F  F  F  F  
+num of available dices: 3
+W  W  W  F  F  F  F  F  
+num of available dices: 8
+W  W  W  F  P  F  F  F  
+num of available dices: 6
+W  W  W  P  P  F  F  F  
+num of available dices: 1
+W  W  W  P  F  F  F  F  
+num of available dices: 3
+W  W  W  P  F  F  F  F  
+num of available dices: 3
+W  W  W  P  F  F  F  F  
+num of available dices: 3
+W  W  W  P  F  F  F  F  
+num of available dices: 3
+W  W  W  F  F  F  F  F  
+num of available dices: 8
+W  P  W  F  F  F  F  F  
+num of available dices: 4
+W  P  W  F  F  F  F  F  
+num of available dices: 4
+P  P  W  F  F  F  F  F  
+num of available dices: 0
+P  F  W  F  F  F  F  F  
+num of available dices: 4
+F  F  W  F  F  F  F  F  
+num of available dices: 8
+F  F  P  F  F  F  F  F  
+num of available dices: 3
+F  F  F  F  F  F  F  F  
+num of available dices: 8
+F  F  P  F  F  F  F  F  
+num of available dices: 3
+F  F  F  F  F  F  F  F  
+num of available dices: 8
+
+*****  A 'wait' instruction was executed and no more interrupts are scheduled... halting emulation!  *****
+
+Done!  The next instruction to execute will be:
+000EC8: 09000000       ret     
+Number of Disk Reads    = 0
+Number of Disk Writes   = 0
+Instructions Executed   = 786171
+Time Spent Sleeping     = 0
+    Total Elapsed Time  = 786171
+[1m[7m%[27m[1m[0m                                                                          [0m[27m[24m[Jkajal@Kajals-MacBook-Pro p3 % [K[?2004hmmake[?2004l
+kpl Main -unsafe
+asm Main.s
+lddd System.o List.o Thread.o Switch.o Synch.o Main.o Runtime.o -o os
+[1m[7m%[27m[1m[0m                                                                          [0m[27m[24m[Jkajal@Kajals-MacBook-Pro p3 % [K[?2004hmakeblitz -g os[11Dex[2C       bl[2Cz -g os[?2004l
+Beginning execution...
+====================  KPL PROGRAM STARTING  ====================
+Initializing Thread Scheduler...
+Hi
+C0 came   
+eSnapshot - Waiting customers: 1
+Shop seats : 0 - e - e - e - e - 
+Barber status : 1 - on seat : |noOne
+                              |_
+                              ; ;
+
+
+C2 came   
+eSnapshot - Waiting customers: 2
+Shop seats : 0 - 2 - e - e - e - 
+Barber status : 1 - on seat : |noOne
+                              |_
+                              ; ;
+
+
+C1 came   
+eSnapshot - Waiting customers: 2
+Shop seats : 0 - 2 - 1 - e - e - 
+Barber status : 1 - on seat : |noOne
+                              |_
+                              ; ;
+
+
+C0 is getting haircut
+Snapshot - Waiting customers: 2
+Shop seats : e - 2 - 1 - e - e - 
+Barber status : 2 - on seat : |C0
+                              |_
+                              ; ;
+
+
+C3 came   
+eSnapshot - Waiting customers: 3
+Shop seats : 3 - 2 - 1 - e - e - 
+Barber status : 1 - on seat : |noOne
+                              |_
+                              ; ;
+
+
+C2 is getting haircut
+Snapshot - Waiting customers: 2
+Shop seats : 3 - e - 1 - e - e - 
+Barber status : 2 - on seat : |C2
+                              |_
+                              ; ;
+
+
+C4 came   
+eSnapshot - Waiting customers: 3
+Shop seats : 3 - 4 - 1 - e - e - 
+Barber status : 1 - on seat : |noOne
+                              |_
+                              ; ;
+
+
+C5 came   
+eSnapshot - Waiting customers: 4
+Shop seats : 3 - 4 - 1 - 5 - e - 
+Barber status : 1 - on seat : |noOne
+                              |_
+                              ; ;
+
+
+C6 came   
+eSnapshot - Waiting customers: 5
+Shop seats : 3 - 4 - 1 - 5 - 6 - 
+Barber status : 1 - on seat : |noOne
+                              |_
+                              ; ;
+
+
+C7 came   
+
+C7 left :(
+
+C8 came   
+
+C8 left :(
+
+C9 came   
+
+C9 left :(
+
+C10 came   
+
+C10 left :(
+
+C11 came   
+
+C11 left :(
+
+C12 came   
+
+C12 left :(
+
+C14 came   
+
+C14 left :(
+
+C15 came   
+
+C15 left :(
+
+C1 is getting haircut
+Snapshot - Waiting customers: 4
+Shop seats : 3 - 4 - e - 5 - 6 - 
+Barber status : 2 - on seat : |C1
+                              |_
+                              ; ;
+
+
+C13 came   
+eSnapshot - Waiting customers: 5
+Shop seats : 3 - 4 - 1 - 5 - 6 - 
+Barber status : 1 - on seat : |noOne
+                              |_
+                              ; ;
+
+
+C16 came   
+
+C16 left :(
+
+C17 came   
+
+C17 left :(
+
+C18 came   
+
+C18 left :(
+
+C19 came   
+
+C19 left :(
+
+C3 is getting haircut
+Snapshot - Waiting customers: 4
+Shop seats : e - 4 - 1 - 5 - 6 - 
+Barber status : 2 - on seat : |C3
+                              |_
+                              ; ;
+
+
+C4 is getting haircut
+Snapshot - Waiting customers: 2
+Shop seats : e - e - 1 - 5 - 6 - 
+Barber status : 2 - on seat : |C4
+                              |_
+                              ; ;
+
+
+C5 is getting haircut
+Snapshot - Waiting customers: 2
+Shop seats : e - e - 1 - e - 6 - 
+Barber status : 2 - on seat : |C5
+                              |_
+                              ; ;
+
+
+C6 is getting haircut
+Snapshot - Waiting customers: 1
+Shop seats : e - e - 1 - e - e - 
+Barber status : 2 - on seat : |C6
+                              |_
+                              ; ;
+
+
+C13 is getting haircut
+Snapshot - Waiting customers: 0
+Shop seats : e - e - e - e - e - 
+Barber status : 2 - on seat : |C13
+                              |_
+                              ; ;
+
+
+*****  A 'wait' instruction was executed and no more interrupts are scheduled... halting emulation!  *****
+
+Done!  The next instruction to execute will be:
+000EC8: 09000000       ret     
+Number of Disk Reads    = 0
+Number of Disk Writes   = 0
+Instructions Executed   = 656490
+Time Spent Sleeping     = 0
+    Total Elapsed Time  = 656490
+[1m[7m%[27m[1m[0m                                                                          [0m[27m[24m[Jkajal@Kajals-MacBook-Pro p3 % [K[?2004heexit[?2004l
+
+Script done on Fri Nov 29 12:01:55 2024

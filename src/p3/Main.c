@@ -4,9 +4,10 @@ code Main
   -- Kajal Baghestani
   -- <401100071>
 
+
   function main ()
       InitializeScheduler ()
-    --    GamingParlor ()
+      --  GamingParlor ()
 
       TestBarberShop()
 
