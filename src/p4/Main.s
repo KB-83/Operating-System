@@ -526,6 +526,11 @@ _Label_473:
 	call	_function_29_RunThreadManagerTests
 ! CALL STATEMENT...
 !   Call the function
+	mov	113,r13		! source line 113
+	mov	"\0\0CA",r10
+	call	_function_27_RunProcessManagerTests
+! CALL STATEMENT...
+!   Call the function
 	mov	116,r13		! source line 116
 	mov	"\0\0CE",r10
 	call	RuntimeExit

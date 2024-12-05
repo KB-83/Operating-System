@@ -857,8 +857,24 @@ code Kernel
         -- This method is called once at kernel startup time to initialize
         -- the one and only "processManager" object.  
         --
-        -- NOT IMPLEMENTED
-        endMethod
+        -- NOT IMPLEMENTED -- by kb
+        var
+        i:int
+
+        processTable = new array of ProcessControlBlock {MAX_NUMBER_OF_PROCESSES of new ProcessControlBlock}
+        freeList = new List[ProcessControlBlock]
+        for i = 0 to MAX_NUMBER_OF_PROCESSES - 1
+          processTable[i] = new ProcessControlBlock
+          freeList.AddToEnd(&processTable[i])
+        endFor
+        processManagerLock = new Mutex
+        processManagerLock.Init()
+        aProcessBecameFree = new Condition
+        aProcessBecameFree.Init()
+        aProcessDied = new Condition
+        aProcessDied.Init()
+        nextPid = 1 -- not sure
+      endMethod
 
       ----------  ProcessManager . Print  ----------
 
@@ -912,9 +928,22 @@ code Kernel
         -- This method returns a new ProcessControlBlock; it will wait
         -- until one is available.
         --
-          -- NOT IMPLEMENTED
-          return null
-        endMethod
+          -- NOT IMPLEMENTED -- by kb
+          var 
+          process : ptr to ProcessControlBlock
+
+          processManagerLock.Lock()
+            while freeList.IsEmpty()
+                aProcessBecameFree.Wait(&processManagerLock)
+            endWhile
+            process = freeList.Remove()
+            process.status = ACTIVE
+            process.pid = nextPid
+            nextPid = nextPid + 1
+          processManagerLock.Unlock()
+
+          return process
+      endMethod
 
       ----------  ProcessManager . FreeProcess  ----------
 
@@ -923,7 +952,12 @@ code Kernel
         -- This method is passed a ptr to a Process;  It moves it
         -- to the FREE list.
         --
-          -- NOT IMPLEMENTED
+          -- NOT IMPLEMENTED -- by kb
+        processManagerLock.Lock()
+          p.status = FREE
+          freeList.AddToEnd(p)
+          aProcessBecameFree.Signal(&processManagerLock)
+        processManagerLock.Unlock()
         endMethod
 
 
