@@ -690,8 +690,28 @@ code Kernel
         -- This method is called once at kernel startup time to initialize
         -- the one and only "ThreadManager" object.
         -- 
-          print ("Initializing Thread Manager...\n")
-          -- NOT IMPLEMENTED
+
+        -- NOT IMPLEMENTED-- implemented by kb
+
+        var
+          i: int
+          myThread : Thread
+
+        print ("Initializing Thread Manager...\n")
+          threadTable = new array of Thread {MAX_NUMBER_OF_PROCESSES of new Thread}
+          freeList = new List[Thread]
+          for i = 0 to MAX_NUMBER_OF_PROCESSES - 1
+            threadTable[i] = new Thread
+            threadTable[i].Init(" ")
+            threadTable[i].status = UNUSED
+            myThread = threadTable[i]
+            freeList.AddToEnd(&myThread)
+          endFor
+          threadManagerLock = new Mutex
+          aThreadBecameFree = new Condition
+          threadManagerLock.Init()
+          aThreadBecameFree.Init()
+
         endMethod
 
       ----------  ThreadManager . Print  ----------
@@ -720,12 +740,21 @@ code Kernel
       ----------  ThreadManager . GetANewThread  ----------
 
       method GetANewThread () returns ptr to Thread
+        var
+        thread : ptr to Thread
         -- 
         -- This method returns a new Thread; it will wait
         -- until one is available.
         -- 
-          -- NOT IMPLEMENTED
-          return null
+          -- NOT IMPLEMENTED-- by kb
+          threadManagerLock.Lock()
+            while freeList.IsEmpty()
+                aThreadBecameFree.Wait(&threadManagerLock)
+            endWhile
+            thread = freeList.Remove()
+            thread.status = JUST_CREATED
+          threadManagerLock.Unlock()
+          return thread
         endMethod
 
       ----------  ThreadManager . FreeThread  ----------
@@ -735,7 +764,12 @@ code Kernel
         -- This method is passed a ptr to a Thread;  It moves it
         -- to the FREE list.
         -- 
-          -- NOT IMPLEMENTED
+          -- NOT IMPLEMENTED--by kb
+        threadManagerLock.Lock()
+          th.status = UNUSED
+          freeList.AddToEnd(th)
+          aThreadBecameFree.Signal(&threadManagerLock)
+        threadManagerLock.Unlock()
         endMethod
 
     endBehavior
