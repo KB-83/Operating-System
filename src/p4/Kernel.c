@@ -865,6 +865,8 @@ code Kernel
         freeList = new List[ProcessControlBlock]
         for i = 0 to MAX_NUMBER_OF_PROCESSES - 1
           processTable[i] = new ProcessControlBlock
+          processTable[i].Init()
+
           freeList.AddToEnd(&processTable[i])
         endFor
         processManagerLock = new Mutex
@@ -1065,13 +1067,49 @@ code Kernel
       ----------  FrameManager . GetNewFrames  ----------
 
       method GetNewFrames (aPageTable: ptr to AddrSpace, numFramesNeeded: int)
-          -- NOT IMPLEMENTED
+          -- NOT IMPLEMENTED -- by kb
+          var
+            i , freeFrameNum , frameAddr : int
+          frameManagerLock.Lock() --1
+
+          while numberFreeFrames < numFramesNeeded --2
+            newFramesAvailable.Wait (&frameManagerLock)
+          endWhile
+
+          for i = 0 to numFramesNeeded-1 --3
+          freeFrameNum = framesInUse.FindZeroAndSet() --a
+          --  frameAddr = ExtractFrameAddr(freeFrameNum) --b which b is correct? or are they equal?
+          frameAddr = PHYSICAL_ADDRESS_OF_FIRST_PAGE_FRAME + PAGE_SIZE * freeFrameNum --b
+          aPageTable.SetFrameAddr (i, frameAddr) --c
+          numberFreeFrames = numberFreeFrames - 1 --4
+          endFor
+
+          --  numberFreeFrames = numberFreeFrames - numFramesNeeded --4
+          aPageTable.numberOfPages = numFramesNeeded --5 is it true? in the 
+          -- document they wanted me to set it to allocated frames not needed. are they equal?
+          frameManagerLock.Unlock()--6
         endMethod
 
       ----------  FrameManager . ReturnAllFrames  ----------
 
       method ReturnAllFrames (aPageTable: ptr to AddrSpace)
-          -- NOT IMPLEMENTED
+          -- NOT IMPLEMENTED--by kb 
+          var
+            i  , frameAddr, numFramesReturned , bitNumber: int
+
+          frameManagerLock.Lock()
+          numFramesReturned = aPageTable.numberOfPages
+
+          for i = 0 to numFramesReturned-1
+            frameAddr = aPageTable.ExtractFrameAddr (i) 
+            bitNumber = (frameAddr- PHYSICAL_ADDRESS_OF_FIRST_PAGE_FRAME ) /PAGE_SIZE
+            framesInUse.ClearBit(bitNumber)
+          endFor
+          numberFreeFrames = numberFreeFrames + numFramesReturned --- probebly bug of previous version/
+
+          newFramesAvailable.Broadcast(&frameManagerLock)
+
+          frameManagerLock.Unlock()
         endMethod
 
     endBehavior

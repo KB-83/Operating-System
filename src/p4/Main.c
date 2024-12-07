@@ -109,9 +109,9 @@ code Main
 */
 
       -- Run more thorough tests.
-      RunThreadManagerTests ()
-      RunProcessManagerTests ()
-      --  RunFrameManagerTests ()
+      --  RunThreadManagerTests ()
+      --  RunProcessManagerTests ()
+      RunFrameManagerTests ()
 
       RuntimeExit ()
 
@@ -348,12 +348,14 @@ code Main
         th.Init ("TestFrameManager")
         th.Fork (TestFrameManager, i)
       endFor
+      --  print("HERE")
 
       -- Wait for all the testing threads to complete.
       -- (Make sure you see the completion message!)
       for i = 1 to MAX_NUMBER_OF_PROCESSES
         allDone2.Down ()
       endFor
+            --  print("HERE")
 
       print ("\n\nThe following shows how many times each frame was used:\n")
       for i = 0 to NUMBER_OF_PHYSICAL_PAGE_FRAMES-1
@@ -430,7 +432,8 @@ code Main
       for i = 0 to n-1
         frameAddr = addrSpace.ExtractFrameAddr (i)
         frameNumber = (frameAddr - PHYSICAL_ADDRESS_OF_FIRST_PAGE_FRAME) / PAGE_SIZE
-        -- printIntVar ("frameNumber", frameNumber)
+        --  printIntVar ("frameNumber", frameNumber)
+        --  printIntVar("i" , i)
         if frameNumber < 0 ||
            frameNumber >= NUMBER_OF_PHYSICAL_PAGE_FRAMES ||
            frameAddr % PAGE_SIZE != 0
