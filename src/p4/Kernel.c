@@ -1,6 +1,6 @@
 code Kernel
 
-  -- <PUT YOUR NAME HERE>
+  -- <401100071>
 
 -----------------------------  InitializeScheduler  ---------------------------------
 
@@ -397,7 +397,24 @@ code Kernel
           oldIntStat = SetInterruptsTo (oldIntStat)
         endMethod
 
-      ----------  Condition . Signal  ----------
+      ----------  Condition . Signal (MESA)  ----------
+
+      --  method Signal (mutex: ptr to Mutex)
+      --      var
+      --        oldIntStat: int
+      --        t: ptr to Thread
+      --      if ! mutex.IsHeldByCurrentThread ()
+      --        FatalError ("Attempt to signal a condition when mutex is not held")
+      --      endIf
+      --      oldIntStat = SetInterruptsTo (DISABLED)
+      --      t = waitingThreads.Remove ()
+      --      if t
+      --        t.status = READY
+      --        readyList.AddToEnd (t)
+      --      endIf
+      --      oldIntStat = SetInterruptsTo (oldIntStat)
+      --    endMethod
+        ----------  Condition . Signal (HOARE)  ----------
 
       method Signal (mutex: ptr to Mutex)
           var
@@ -408,9 +425,11 @@ code Kernel
           endIf
           oldIntStat = SetInterruptsTo (DISABLED)
           t = waitingThreads.Remove ()
-          if t
-            t.status = READY
-            readyList.AddToEnd (t)
+           if t
+            --  currentThread.status = READY
+            --  t.status = RUNNING
+            readyList.AddToEnd(currentThread)
+            Run(t)
           endIf
           oldIntStat = SetInterruptsTo (oldIntStat)
         endMethod
@@ -748,9 +767,9 @@ code Kernel
         -- 
           -- NOT IMPLEMENTED-- by kb
           threadManagerLock.Lock()
-            while freeList.IsEmpty()
+            if freeList.IsEmpty()
                 aThreadBecameFree.Wait(&threadManagerLock)
-            endWhile
+            endIf
             thread = freeList.Remove()
             thread.status = JUST_CREATED
           threadManagerLock.Unlock()
@@ -1047,9 +1066,9 @@ code Kernel
           frameManagerLock.Lock ()
 
           -- Wait until we have enough free frames to entirely satisfy the request...
-          while numberFreeFrames < 1
+          if numberFreeFrames < 1
             newFramesAvailable.Wait (&frameManagerLock)
-          endWhile
+          endIf
 
           -- Find a free frame and allocate it...
           f = framesInUse.FindZeroAndSet ()
