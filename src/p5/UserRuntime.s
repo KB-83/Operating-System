@@ -829,5 +829,3 @@ _NegZero:
 SourceFileName:
 	.ascii	"UserRuntime.s\0"
 	.align
-
-

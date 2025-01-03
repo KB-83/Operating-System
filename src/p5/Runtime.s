@@ -1267,4 +1267,3 @@ _PerformThrow_found:				! FOUND:
 	load	[r1+12],r14			!   Restore FP
 	load	[r1+16],r6			!   Save the new SP in r6
 	jmp	r2				!   jump to catch code
-

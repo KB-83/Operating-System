@@ -38,7 +38,7 @@ code UserSystem
       --
       -- This function yields the CPU to another process on the ready list.
       -- Once this process is scheduled again, this function will return.
-      -- From the callers perspective, this routine is similar to a "nop".
+      -- From the caller's perspective, this routine is similar to a "nop".
       --
         var ignore: int
         ignore = DoSyscall (SYSCALL_YIELD, 0, 0, 0, 0)
@@ -67,7 +67,7 @@ code UserSystem
       -- The returnStatus passed by that process to "Sys_Exit" will be
       -- returned from this function.  If the other process invokes
       -- "Sys_Exit" first, this returnStatus will be saved until either
-      -- its parent executes a "Sys_Join" naming that processs pid or
+      -- its parent executes a "Sys_Join" naming that process's pid or
       -- until its parent terminates.
       --
         return DoSyscall (SYSCALL_JOIN, processID, 0, 0, 0)

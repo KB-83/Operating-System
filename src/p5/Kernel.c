@@ -1004,11 +1004,18 @@ code Kernel
     --
       FatalError ("ProcessFinish is not implemented")
     endFunction
------------------------------  by kb  --------------------------
+    -----------------------------  KB --------------------------
 
   function InitFirstProcess ()
-      FatalError ("ProcessFinish is not implemented")
+    --
+    -- This routine is called when a process is to be terminated.  It will
+    -- free the resources held by this process and will terminate the
+    -- current thread.
+    --
+      FatalError ("ProcessFinish is not implemented added by KB")
     endFunction
+    
+
 -----------------------------  FrameManager  ---------------------------------
 
   behavior FrameManager
@@ -1797,6 +1804,7 @@ code Kernel
   function Handle_Sys_Close (fileDesc: int)
       -- NOT IMPLEMENTED
     endFunction
+
 -----------------------------  DiskDriver  ---------------------------------
 
   const
@@ -2663,5 +2671,4 @@ code Kernel
         endMethod
 
   endBehavior
-
 endCode
