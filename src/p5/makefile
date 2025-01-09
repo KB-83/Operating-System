@@ -110,3 +110,4 @@ DISK: MyProgram TestProgram1 TestProgram2
 	diskUtil -a MyProgram MyProgram
 	diskUtil -a TestProgram1 TestProgram1
 	diskUtil -a TestProgram2 TestProgram2
+
